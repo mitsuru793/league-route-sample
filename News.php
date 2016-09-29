@@ -6,9 +6,18 @@ require_once './BaseController.php';
 
 class News extends BaseController
 {
+    /**
+     * BaseController#before/afterActionを試すためのメソッドです。
+     * __callを呼び出すためにアクションメソッドをpublicではなく、protectedかprivateにする必要があります。
+     */
     protected function beforeAfterAction(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
-        echo '--- start $News->beforeAction() ---<br />';
+        echo '--- start $News->beforeAfterAction() ---<br />';
+        echo '<h1>beforeAfterAction</h1>';
+        echo '<h3>params()</h3>';
+        var_dump($this->params('get'));
+        var_dump($this->params('post'));
+        // afterActionに渡すために戻り値が必要です。
         return [$request, $response, $args];
     }
 
