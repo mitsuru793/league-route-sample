@@ -47,7 +47,7 @@ class News extends BaseController
         ob_start();
         echo '<h3>getQueryParams()</h3>';
         echo 'GETで送信したものが入ります。';
-        echo var_dump($request->getQueryParams('text'));
+        echo var_dump($request->getQueryParams());
 
         echo '<h3>getParsedBody()</h3>';
         echo 'POSTで送信したものが入ります。';
@@ -57,7 +57,7 @@ class News extends BaseController
         echo 'クエリ(GET)が入ります。';
         echo var_dump($request->getUri());
 
-        $dump = ob_get_clean();
-        $response->getBody()->write($dump);
+        $buff = ob_get_clean();
+        $response->getBody()->write($buff);
     }
 }
