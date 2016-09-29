@@ -44,6 +44,9 @@ $router->group('/news', function ($router) {
 
     // パラメータのパターンには正規表現が使える
     $router->map('GET', '/show/{regex:user_\d+}', 'News::show');
+
+    $router->map('GET', '/create', 'News::create');
+    $router->map('POST', '/create', 'News::create');
 });
 
 $response = $router->dispatch($container->get('request'), $container->get('response'));
