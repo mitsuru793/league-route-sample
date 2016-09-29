@@ -18,6 +18,7 @@ class BaseController {
         }
         // 不変オブジェクトのため、戻り値を次のアクションに渡す必要がある。
         $args = call_user_func_array([$this, 'beforeAction'], $args);
+        // メインのアクションメソッド
         $args = call_user_func_array([$this, $method], $args);
         call_user_func_array([$this, 'afterAction'], $args);
     }

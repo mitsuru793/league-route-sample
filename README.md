@@ -83,16 +83,19 @@ $newReq = $request
 * CookieParams
 * QueryParams
 * ParsedBody
-* Attribute
 * Method
 * ProtocolVersion
 * Body
 * RequestTarget
 * Uri
 
-**getのみ**
+**attribute系**
+
+requestオブジェクトに自由にkey-valueを持たせることができます。
 
 * getAttributes
+* getAttribute
+* withAttribute
 * withoutAttribute
 
 **header系**
