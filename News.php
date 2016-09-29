@@ -2,9 +2,16 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+require_once './BaseController.php';
 
-class News
+class News extends BaseController
 {
+    protected function beforeAfterAction(ServerRequestInterface $request, ResponseInterface $response, array $args)
+    {
+        echo '--- start $News->beforeAction() ---<br />';
+        return [$request, $response, $args];
+    }
+
     public function index(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
         // writeしたものより先にechoしたものがブラウザに描画されます。

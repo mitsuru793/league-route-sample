@@ -18,6 +18,7 @@ $container->share('request', function () {
         $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
     );
 });
+
 $container->share('emitter', Zend\Diactoros\Response\SapiEmitter::class);
 
 $router = new League\Route\RouteCollection($container);
@@ -47,6 +48,8 @@ $router->group('/news', function ($router) {
 
     $router->map('GET', '/create', 'News::create');
     $router->map('POST', '/create', 'News::create');
+
+    $router->map('GET', '/beforeAfterAction', 'News::beforeAfterAction');
 });
 
 $response = $router->dispatch($container->get('request'), $container->get('response'));
