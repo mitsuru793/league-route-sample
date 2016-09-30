@@ -31,6 +31,9 @@ $router->map('GET', '/', function (ServerRequestInterface $request, ResponseInte
 echo '--- start $router->map() ---<br />';
 // 先頭の共通パスはグループ化することができます。
 $router->group('/news', function ($router) {
+    // 複数にマッチする場合は、先に定義されたものが使われます。
+    // つまりに先にマッチしたらそこでルーティングは終了です。
+
     // `/news`でマッチ。末尾にスラッシュがあると駄目
     $router->map('GET', '/', 'News::index');
 

@@ -47,6 +47,7 @@ class News extends BaseController
         $response->getBody()->write('<h1>contact</h1>');
 
         $response->getBody()->write('<h2>input data</h2>');
+        $response->getBody()->write('<p>このformはpost送信です。</p>');
         $response->getBody()->write('
         <form action="/news/create" method="post">
             <input type="text" name="name">
@@ -55,7 +56,7 @@ class News extends BaseController
         </form>');
 
         $response->getBody()->write('<h2>submit data</h2>');
-        ob_start();
+        ob_start(); // var_dumpもwriteするため
         echo '<h3>getQueryParams()</h3>';
         echo 'GETで送信したものが入ります。';
         echo var_dump($request->getQueryParams());

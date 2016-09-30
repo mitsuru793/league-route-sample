@@ -29,7 +29,7 @@ class BaseController {
      */
     public function beforeAction(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
-        $response->getBody()->write('--- start beforeAction() ---<br />');
+        echo '--- start beforeAction() ---<br />';
 
         // params()などのヘルパーメソッドのためにオブジェクトを持っておく
         $this->request = $request;
@@ -44,7 +44,7 @@ class BaseController {
      */
     public function afterAction(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
-        $response->getBody()->write('--- start afterAction() ---<br />');
+        echo '--- start afterAction() ---<br />';
     }
 
     /**
