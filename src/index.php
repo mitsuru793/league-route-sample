@@ -2,7 +2,6 @@
 namespace LeagueRouteSample;
 
 echo '--- start index.php---<br />';
-
 require_once dirname(__FILE__) . "/../vendor/autoload.php";
 
 use Psr\Http\Message\ResponseInterface;
@@ -38,26 +37,27 @@ $router->group('/news', function ($router) {
     // つまりに先にマッチしたらそこでルーティングは終了です。
 
     // `/news`でマッチ。末尾にスラッシュがあると駄目
-    $router->map('GET', '/', 'News::index');
+    $router->map('GET', '/', __NAMESPACE__ . '\News::index');
 
     // idが数字だけの時マッチ。idはintに変換されずに文字列のまま。
     // パラメーターを[  ]で囲まない場合は必須になる
-    $router->map('GET', '/show/{id:number}', 'News::show');
+    $router->map('GET', '/show/{id:number}', __NAMESPACE__ . '\News::show');
 
     // wordがアルファベット(大文字・小文字)だけの時マッチ。
     // パラメータを[  ]で囲むとオプション値になる
     // オプションなので`/show/`もマッチする
-    $router->map('GET', '/show/[{word:word}]', 'News::show');
+    $router->map('GET', '/show/[{word:word}]', __NAMESPACE__ . '\News::show');
 
     // パラメータのパターンには正規表現が使える
-    $router->map('GET', '/show/{regex:user_\d+}', 'News::show');
+    $router->map('GET', '/show/{regex:user_\d+}', __NAMESPACE__ . '\News::show');
 
-    //$router->map('GET', '/create', 'News::create');
+    // 配列でもコントローラーとメソッドを渡すことができる。
     $router->map('GET', '/create', [new News, 'create']);
-    $router->map('POST', '/create', 'News::create');
+    $router->map('POST', '/create', __NAMESPACE__ . '\News::create');
 
     // __callによるbefore/afterActionの呼び出し確認
-    $router->map('GET', '/magic-method-call', 'News::magicMethodCall');
+    $router->map('GET', '/magic-method-call', __NAMESPACE__ . '\News::magicMethodCall');
+
 });
 
 // CustomStrategyによるbefore/afterActionの呼び出し確認
@@ -65,7 +65,7 @@ $router->group('/news', function ($router) {
 // group()内では、$routerのクラスが変わるのでsetStrategy()が使えないので、外側で定義。
 if ($_SERVER['REQUEST_URI'] === '/news/custom-strategy') {
     $router->setStrategy(new CustomStrategy);
-    $router->map('GET', '/news/custom-strategy', 'News::customStrategy');
+    $router->map('GET', '/news/custom-strategy', __NAMESPACE__ . '\News::customStrategy');
 }
 
 $response = $router->dispatch($container->get('request'), $container->get('response'));
