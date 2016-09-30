@@ -4,6 +4,7 @@ echo '--- start index.php---<br />';
 
 require_once "vendor/autoload.php";
 require_once './News.php';
+require_once './CustomStrategy.php';
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -55,6 +56,14 @@ $router->group('/news', function ($router) {
     // __callによるbefore/afterActionの呼び出し確認
     $router->map('GET', '/magic-method-call', 'News::magicMethodCall');
 });
+
+// CustomStrategyによるbefore/afterActionの呼び出し確認
+// setStrategyは前に定義したルーティングにも影響するので、ifを使用。
+// group()内では、$routerのクラスが変わるのでsetStrategy()が使えないので、外側で定義。
+if ($_SERVER['REQUEST_URI'] === '/news/custom-strategy') {
+    $router->setStrategy(new CustomStrategy);
+    $router->map('GET', '/news/custom-strategy', 'News::customStrategy');
+}
 
 $response = $router->dispatch($container->get('request'), $container->get('response'));
 

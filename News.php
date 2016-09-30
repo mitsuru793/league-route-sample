@@ -23,6 +23,22 @@ class News extends BaseController
         return [$request, $response, $args];
     }
 
+    /**
+     * BaseController#before/afterActionを試すためのメソッドです。
+     * league/routeの機能で、用意したカスタムストラテジーによってpublicメソッドでもフックが有効になります。
+     */
+    public function customStrategy(ServerRequestInterface $request, ResponseInterface $response, array $args)
+    {
+        echo '--- start $News->beforeAfterAction() ---<br />';
+        $get  = $this->params('get');
+        $post = $this->params('post');
+        echo '<h3>params()</h3>';
+        echo "<p>params('get')  = {$get}</p>";
+        echo "<p>params('post') = {$post}</p>";
+        // afterActionに渡すために戻り値が必要です。
+        return [$request, $response, $args];
+    }
+
     public function index(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
         // writeしたものより先にechoしたものがブラウザに描画されます。
