@@ -49,7 +49,8 @@ $router->group('/news', function ($router) {
     $router->map('GET', '/create', 'News::create');
     $router->map('POST', '/create', 'News::create');
 
-    $router->map('GET', '/beforeAfterAction', 'News::beforeAfterAction');
+    // __callによるbefore/afterActionの呼び出し確認
+    $router->map('GET', '/magic-method-call', 'News::magicMethodCall');
 });
 
 $response = $router->dispatch($container->get('request'), $container->get('response'));
