@@ -1,6 +1,7 @@
 {
   "require": {
     "league/route": "*",
-    "zendframework/zend-diactoros": "*"
+    "zendframework/zend-diactoros": "*",
+    "codeception/codeception": "2.1.11"
   }
 }
