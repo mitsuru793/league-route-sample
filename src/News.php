@@ -14,12 +14,13 @@ class News extends BaseController
      */
     protected function magicMethodCall(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
-        echo '--- start $News->magicMethodCall() ---<br />';
+        $response->getBody()->write('--- start $News->magicMethodCall() ---<br />');
         $get  = $this->params('get');
         $post = $this->params('post');
-        echo '<h3>params()</h3>';
-        echo "<p>params('get')  = {$get}</p>";
-        echo "<p>params('post') = {$post}</p>";
+        $response->getBody()->write(
+        '<h3>params()</h3>'.
+        "<p>params('get')  = {$get}</p>".
+        "<p>params('post') = {$post}</p>");
         // afterActionに渡すために戻り値が必要です。
         return [$request, $response, $args];
     }
@@ -88,5 +89,6 @@ class News extends BaseController
 
         $buff = ob_get_clean();
         $response->getBody()->write($buff);
+
     }
 }
