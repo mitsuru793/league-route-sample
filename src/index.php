@@ -3,11 +3,12 @@ namespace LeagueRouteSample;
 
 echo '--- start index.php---<br />';
 
-require_once "../vendor/autoload.php";
+require_once dirname(__FILE__) . "/../vendor/autoload.php";
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+use LeagueRouteSample\CustomStrategy;
 use LeagueRouteSample\News;
 
 $container = new \League\Container\Container;
