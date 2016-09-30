@@ -8,7 +8,8 @@ class News extends BaseController
 {
     /**
      * BaseController#before/afterActionを試すためのメソッドです。
-     * __callを呼び出すためにアクションメソッドをpublicではなく、protectedかprivateにする必要があります。
+     * __callを呼び出すためにアクションメソッドをpublicではなく、protectedにする必要があります。
+     * privateにすると呼び出しがループしてスタックオーバーになります。
      */
     protected function beforeAfterAction(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
