@@ -1,4 +1,9 @@
 {
+  "autoload": {
+        "psr-4": {
+            "LeagueRouteSample\\": "src/"
+        }
+    },
   "require": {
     "league/route": "*",
     "zendframework/zend-diactoros": "*",

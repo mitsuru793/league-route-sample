@@ -1,8 +1,9 @@
 <?
+namespace LeagueRouteSample;
 
+require_once './BaseController.php';
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-require_once './BaseController.php';
 
 class News extends BaseController
 {

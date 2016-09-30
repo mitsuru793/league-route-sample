@@ -1,28 +1,29 @@
 <?php
+namespace LeagueRouteSample;
 
 echo '--- start index.php---<br />';
 
-require_once "vendor/autoload.php";
-require_once './News.php';
-require_once './CustomStrategy.php';
+require_once "../vendor/autoload.php";
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-$container = new League\Container\Container;
+use LeagueRouteSample\News;
+
+$container = new \League\Container\Container;
 
 // PSRを実装したクラスを使って登録。dispatchに渡す専用のBean, Modelみたいなもの？
 // dispatch()の時にget()で取り出して渡す。
-$container->share('response', Zend\Diactoros\Response::class);
+$container->share('response', \Zend\Diactoros\Response::class);
 $container->share('request', function () {
-    return Zend\Diactoros\ServerRequestFactory::fromGlobals(
+    return \Zend\Diactoros\ServerRequestFactory::fromGlobals(
         $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
     );
 });
 
-$container->share('emitter', Zend\Diactoros\Response\SapiEmitter::class);
+$container->share('emitter', \Zend\Diactoros\Response\SapiEmitter::class);
 
-$router = new League\Route\RouteCollection($container);
+$router = new \League\Route\RouteCollection($container);
 
 // コントローラーとアクションメソッド名は大文字小文字を区別しませんが、定義元と合わせた方が良い。
 $router->map('GET', '/', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
@@ -50,7 +51,8 @@ $router->group('/news', function ($router) {
     // パラメータのパターンには正規表現が使える
     $router->map('GET', '/show/{regex:user_\d+}', 'News::show');
 
-    $router->map('GET', '/create', 'News::create');
+    //$router->map('GET', '/create', 'News::create');
+    $router->map('GET', '/create', [new News, 'create']);
     $router->map('POST', '/create', 'News::create');
 
     // __callによるbefore/afterActionの呼び出し確認

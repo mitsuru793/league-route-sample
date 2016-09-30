@@ -1,4 +1,5 @@
 <?php
+namespace LeagueRouteSample;
 
 use League\Route\Strategy\AbstractStrategy;
 use League\Route\Strategy\StrategyInterface;

@@ -1,4 +1,6 @@
 <?php
+namespace LeagueRouteSample;
+
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
